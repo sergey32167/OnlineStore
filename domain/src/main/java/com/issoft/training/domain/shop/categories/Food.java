@@ -1,9 +1,9 @@
-package shop.category;
+package com.issoft.training.domain.shop.categories;
 
-public class Food extends Category {
+public class Food extends Categories {
 
-    public Food(String name) {
-        this.name = name;
+    public Food() {
+        super("food");
     }
 
     @Override
@@ -11,6 +11,6 @@ public class Food extends Category {
         return "Food{" +
                 "name=" + name +
                 ", productList='" + productList + '\'' +
-                '}';
+                '}' + '\n';
     }
 }

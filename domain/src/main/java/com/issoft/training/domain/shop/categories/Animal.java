@@ -1,9 +1,9 @@
-package shop.category;
+package com.issoft.training.domain.shop.categories;
 
-public class Animal extends Category {
+public class Animal extends Categories {
 
-    public Animal(String name) {
-        this.name = name;
+    public Animal() {
+        super("animal");
     }
 
     @Override
@@ -11,6 +11,6 @@ public class Animal extends Category {
         return "Animal{" +
                 "name=" + name +
                 ", productList='" + productList + '\'' +
-                '}';
+                '}' + '\n';
     }
 }

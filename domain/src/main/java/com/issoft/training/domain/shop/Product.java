@@ -1,12 +1,13 @@
-package shop;
+package com.issoft.training.domain.shop;
+
 public class Product {
 
     private String name;
     private double price;
     private double rate;
 
-    public Product(String pName, double price, double rate) {
-        this.name = pName;
+    public Product(String name, double price, double rate) {
+        this.name = name;
         this.price = price;
         this.rate = rate;
     }
