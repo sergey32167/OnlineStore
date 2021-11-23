@@ -1,12 +1,9 @@
 package shop.category;
 
-import utils.RandomStorePopulator;
-
 public class Food extends Category {
 
-    public Food() {
-        this.name = "food";
-        this.productList = RandomStorePopulator.createListProduct(name);
+    public Food(String name) {
+        this.name = name;
     }
 
     @Override

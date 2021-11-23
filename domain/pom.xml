@@ -14,12 +14,6 @@
     </properties>
 
     <artifactId>domain</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>com.issoft.training</groupId>
-            <artifactId>stores</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+
 
 </project>

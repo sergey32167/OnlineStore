@@ -1,7 +1,5 @@
 package shop.category;
-
 import shop.Product;
-
 import java.util.List;
 
 public abstract class Category {

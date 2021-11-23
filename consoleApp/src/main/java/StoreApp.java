@@ -1,12 +1,11 @@
 import listCategory.Store;
 
-import java.io.IOException;
-
 public class StoreApp {
 
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) {
         Store store = new Store();
-        store.handListCategory();
+        store.treatmentListCategory();
+
+
     }
 }

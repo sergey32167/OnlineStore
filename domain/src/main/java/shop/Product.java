@@ -1,22 +1,22 @@
 package shop;
 public class Product {
 
-    private String pName;
+    private String name;
     private double price;
     private double rate;
 
     public Product(String pName, double price, double rate) {
-        this.pName = pName;
+        this.name = pName;
         this.price = price;
         this.rate = rate;
     }
 
-    public String getpName() {
-        return pName;
+    public String getName() {
+        return name;
     }
 
-    public void setpName(String pName) {
-        this.pName = pName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getPrice() {
@@ -38,7 +38,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{"
-                + "pName='" + pName + '\''
+                + "name='" + name + '\''
                 + ", price=" + price
                 + ", rate=" + rate
                 + '}';
