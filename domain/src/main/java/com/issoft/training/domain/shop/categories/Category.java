@@ -4,12 +4,12 @@ import com.issoft.training.domain.shop.Product;
 
 import java.util.List;
 
-public abstract class Categories {
+public abstract class Category {
 
     protected List<Product> productList;
     protected String name;
 
-    public Categories(String name) {
+    public Category(String name) {
         this.name = name;
     }
 

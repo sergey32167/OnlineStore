@@ -2,7 +2,7 @@ package com.issoft.training.stores.utils;
 
 import com.github.javafaker.Faker;
 import com.issoft.training.domain.shop.Product;
-import com.issoft.training.domain.shop.categories.Categories;
+import com.issoft.training.domain.shop.categories.Category;
 import org.reflections.Reflections;
 
 import java.util.ArrayList;
@@ -11,23 +11,22 @@ import java.util.List;
 public class RandomStorePopulator {
     private static final Faker faker = new Faker();
 
-    private static Product createProductByCategoriesName(String categoryName) {
-        int price = (int) faker.number().randomNumber();
-        int rate = (int) faker.number().randomNumber();
+    private static String createProductName(String categoryName) {
+        String name;
         switch (categoryName) {
             case "food":
-                return new Product(faker.food().vegetable(), price, rate);
+                return name = faker.food().vegetable();
             case "animal":
-                return new Product(faker.animal().name(), price, rate);
+                return name = faker.animal().name();
             case "book":
-                return new Product(faker.book().genre(), price, rate);
-            case "beer":
-                return new Product(faker.beer().name(), price, rate);
-            case "color":
-                return new Product(faker.color().name(), price, rate);
+                return name = faker.book().genre();
             default:
-                return new Product(faker.name().firstName(), price, rate);
+                return name = faker.name().firstName();
         }
+    }
+
+    private static Product createProductByCategoriesName(String categoryName) {
+        return new Product(RandomStorePopulator.createProductName(categoryName), faker.number().randomNumber(), faker.number().randomNumber());
     }
 
     private static List<Product> createListProduct(String categoryName) {
@@ -42,16 +41,18 @@ public class RandomStorePopulator {
         return listProduct;
     }
 
-    public static List<Categories> createListCategories() {
-        List<Categories> categoryList = new ArrayList<>();
+    public static List<Category> createListCategories() {
+        List<Category> categoryList = new ArrayList<>();
         Reflections reflections = new Reflections("com.issoft.training.domain.shop.categories");
-        for (Class<? extends Categories> detector : reflections.getSubTypesOf(Categories.class)) {
+        for (Class<? extends Category> detector : reflections.getSubTypesOf(Category.class)) {
             try {
-                Categories newCategory = detector.newInstance();
+                Category newCategory = detector.newInstance();
                 newCategory.setProductList(createListProduct(newCategory.getName()));
                 categoryList.add(newCategory);
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (InstantiationException e) {
+                throw new RuntimeException("The specified class object cannot be instantiated");
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("The currently executing method does not have access");
             }
         }
 //        System.out.println(categoryList);

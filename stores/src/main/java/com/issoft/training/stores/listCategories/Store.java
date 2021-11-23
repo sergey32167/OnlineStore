@@ -1,22 +1,22 @@
 package com.issoft.training.stores.listCategories;
 
-import com.issoft.training.domain.shop.categories.Categories;
+import com.issoft.training.domain.shop.categories.Category;
 import com.issoft.training.stores.utils.RandomStorePopulator;
 
 import java.util.List;
 
 public class Store {
-    private List<Categories> categoryList;
+    private List<Category> categoryList;
 
     public Store() {
         this.categoryList = RandomStorePopulator.createListCategories();
     }
 
-    public List<Categories> getCategoryList() {
+    public List<Category> getCategoryList() {
         return categoryList;
     }
 
-    public void setCategoryList(List<Categories> categoryList) {
+    public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
     }
 

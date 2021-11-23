@@ -1,6 +1,6 @@
 package com.issoft.training.domain.shop.categories;
 
-public class Book extends Categories {
+public class Book extends Category {
 
     public Book() {
         super("book");
