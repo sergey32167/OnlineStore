@@ -11,10 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Store {
-    private static List<Category> categoryList;
+    private final DocPars doc;
+    private List<Category> categoryList;
 
     public Store() {
         this.categoryList = RandomStorePopulator.createListCategories();
+        this.doc = new DocPars();
+        doc.docParse("config.xml");
     }
 
     public List<Category> getCategoryList() {
@@ -41,27 +44,18 @@ public class Store {
     }
 
     public void sortProducts() {
-        DocPars doc = new DocPars();
-        doc.DocParse("config.xml");
-        String orderingName = doc.getOrderingValueByTag("name");
-        String orderingPrice = doc.getOrderingValueByTag("price");
-        String orderingRate = doc.getOrderingValueByTag("rate");
-        List<Product> listNewProduct = new ArrayList<>(getAllShopProducts());
-        listNewProduct.sort(new ProductComparator(orderingName, orderingPrice, orderingRate));
-
-        for (Product p : listNewProduct) {
-            System.out.println(p.getName() + "|" + p.getPrice() + "|" + p.getRate());
+        List<Product> listNewProduct = getAllShopProducts();
+        listNewProduct.sort(new ProductComparator(doc.getTagsValue()));
+        for (Product product : listNewProduct) {
+            System.out.println(product);
         }
     }
 
     public void topProducts() {
-        List<Product> listTopProduct = new ArrayList<>(getAllShopProducts());
-        List<Product> list = new ArrayList<>();
+        List<Product> listTopProduct = getAllShopProducts();
         listTopProduct.sort(new ComparatorByPrice());
-
         for (int i = 0; i < 5; i++) {
             System.out.println(listTopProduct.get(i));
         }
-
     }
 }

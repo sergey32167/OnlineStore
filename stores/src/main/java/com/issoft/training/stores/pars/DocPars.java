@@ -9,12 +9,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DocPars {
 
     private Document doc;
 
-    public void DocParse(String filepath) {
+    public void docParse(String filepath) {
         File file = new File(filepath);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
@@ -28,21 +30,17 @@ public class DocPars {
         }
     }
 
-    public String getOrderingValueByTag(String tagName) {
+    public List<String> getTagsValue() {
+        List<String> tagsValue = new ArrayList<>();
         Node modelNote = doc.getFirstChild();
-//        System.out.println(modelNote);
         NodeList modelChilds = modelNote.getChildNodes();
 
         for (int i = 0; i < modelChilds.getLength(); i++) {
-
             if (modelChilds.item(i).getNodeType() != Node.ELEMENT_NODE) {
                 continue;
             }
-//            System.out.println(modelChilds.item(i).getNodeName());
-            if (tagName.equals(modelChilds.item(i).getNodeName())) {
-                return modelChilds.item(i).getTextContent();
-            }
+            tagsValue.add(modelChilds.item(i).getTextContent());
         }
-        return null;
+        return tagsValue;
     }
 }
