@@ -2,7 +2,6 @@ package com.issoft.training.stores.listCategories;
 
 import com.issoft.training.domain.shop.Product;
 import com.issoft.training.domain.shop.categories.Category;
-import com.issoft.training.stores.comparaton.ComparatorByPrice;
 import com.issoft.training.stores.comparaton.ProductComparator;
 import com.issoft.training.stores.pars.DocPars;
 import com.issoft.training.stores.utils.RandomStorePopulator;
@@ -11,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Store {
-    private final DocPars doc;
     private List<Category> categoryList;
+    private final DocPars doc;
 
     public Store() {
         this.categoryList = RandomStorePopulator.createListCategories();
@@ -45,7 +44,7 @@ public class Store {
 
     public void sortProducts() {
         List<Product> listNewProduct = getAllShopProducts();
-        listNewProduct.sort(new ProductComparator(doc.getTagsValue()));
+        listNewProduct.sort(new ProductComparator(doc.getTagsValue(), doc.getTagsName()));
         for (Product product : listNewProduct) {
             System.out.println(product);
         }
@@ -53,7 +52,7 @@ public class Store {
 
     public void topProducts() {
         List<Product> listTopProduct = getAllShopProducts();
-        listTopProduct.sort(new ComparatorByPrice());
+        listTopProduct.sort(new ProductComparator(doc.getTagValue("price"), doc.getTagName("price")));
         for (int i = 0; i < 5; i++) {
             System.out.println(listTopProduct.get(i));
         }

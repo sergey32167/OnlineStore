@@ -11,6 +11,5 @@ public class StoreApp {
 
         CommandReadingScanner scanner = new CommandReadingScanner(store);
         scanner.scannerCommand();
-
     }
 }

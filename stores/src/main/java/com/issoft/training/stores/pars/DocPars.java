@@ -43,4 +43,48 @@ public class DocPars {
         }
         return tagsValue;
     }
+
+    public List<String> getTagValue(String tagName) {
+        List<String> tagValue = new ArrayList<>();
+        Node modelNote = doc.getFirstChild();
+        NodeList modelChilds = modelNote.getChildNodes();
+
+        for (int i = 0; i < modelChilds.getLength(); i++) {
+            if (modelChilds.item(i).getNodeType() != Node.ELEMENT_NODE) {
+                continue;
+            }
+            if (tagName.equals(modelChilds.item(i).getNodeName()))
+                tagValue.add(modelChilds.item(i).getTextContent());
+        }
+        return tagValue;
+    }
+
+    public List<String> getTagsName() {
+        List<String> tagsName = new ArrayList<>();
+        Node modelNote = doc.getFirstChild();
+        NodeList modelChilds = modelNote.getChildNodes();
+
+        for (int i = 0; i < modelChilds.getLength(); i++) {
+            if (modelChilds.item(i).getNodeType() != Node.ELEMENT_NODE) {
+                continue;
+            }
+            tagsName.add(modelChilds.item(i).getNodeName());
+        }
+        return tagsName;
+    }
+
+    public List<String> getTagName(String tagName) {
+        List<String> oneTagName = new ArrayList<>();
+        Node modelNote = doc.getFirstChild();
+        NodeList modelChilds = modelNote.getChildNodes();
+
+        for (int i = 0; i < modelChilds.getLength(); i++) {
+            if (modelChilds.item(i).getNodeType() != Node.ELEMENT_NODE) {
+                continue;
+            }
+            if (tagName.equals(modelChilds.item(i).getNodeName()))
+                oneTagName.add(modelChilds.item(i).getNodeName());
+        }
+        return oneTagName;
+    }
 }
