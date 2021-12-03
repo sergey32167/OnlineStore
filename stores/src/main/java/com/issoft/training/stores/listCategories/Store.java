@@ -16,7 +16,7 @@ public class Store {
     public Store() {
         this.categoryList = RandomStorePopulator.createListCategories();
         this.doc = new DocPars();
-        doc.docParse("config.xml");
+        doc.parseFile();
     }
 
     public List<Category> getCategoryList() {
@@ -44,7 +44,7 @@ public class Store {
 
     public void sortProducts() {
         List<Product> listNewProduct = getAllShopProducts();
-        listNewProduct.sort(new ProductComparator(doc.getTagsValue(), doc.getTagsName()));
+        listNewProduct.sort(new ProductComparator(doc.getDateSort()));
         for (Product product : listNewProduct) {
             System.out.println(product);
         }
@@ -52,7 +52,7 @@ public class Store {
 
     public void topProducts() {
         List<Product> listTopProduct = getAllShopProducts();
-        listTopProduct.sort(new ProductComparator(doc.getTagValue("price"), doc.getTagName("price")));
+        listTopProduct.sort(new ProductComparator(doc.getPriceSort()));
         for (int i = 0; i < 5; i++) {
             System.out.println(listTopProduct.get(i));
         }

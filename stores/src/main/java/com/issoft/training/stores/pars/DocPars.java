@@ -9,15 +9,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class DocPars {
-
     private Document doc;
+    public final static String FILEPATH = "config.xml";
 
-    public void docParse(String filepath) {
-        File file = new File(filepath);
+    public void parseFile() {
+        File file = new File(FILEPATH);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             this.doc = dbf.newDocumentBuilder().parse(file);
@@ -30,8 +30,8 @@ public class DocPars {
         }
     }
 
-    public List<String> getTagsValue() {
-        List<String> tagsValue = new ArrayList<>();
+    public Map<String, String> getDateSort() {
+        Map<String, String> tagsNameValue = new TreeMap<>();
         Node modelNote = doc.getFirstChild();
         NodeList modelChilds = modelNote.getChildNodes();
 
@@ -39,13 +39,13 @@ public class DocPars {
             if (modelChilds.item(i).getNodeType() != Node.ELEMENT_NODE) {
                 continue;
             }
-            tagsValue.add(modelChilds.item(i).getTextContent());
+            tagsNameValue.put(modelChilds.item(i).getNodeName(), modelChilds.item(i).getTextContent());
         }
-        return tagsValue;
+        return tagsNameValue;
     }
 
-    public List<String> getTagValue(String tagName) {
-        List<String> tagValue = new ArrayList<>();
+    public Map<String, String> getPriceSort() {
+        Map<String, String> tagsNameValue = new TreeMap<>();
         Node modelNote = doc.getFirstChild();
         NodeList modelChilds = modelNote.getChildNodes();
 
@@ -53,38 +53,10 @@ public class DocPars {
             if (modelChilds.item(i).getNodeType() != Node.ELEMENT_NODE) {
                 continue;
             }
-            if (tagName.equals(modelChilds.item(i).getNodeName()))
-                tagValue.add(modelChilds.item(i).getTextContent());
-        }
-        return tagValue;
-    }
-
-    public List<String> getTagsName() {
-        List<String> tagsName = new ArrayList<>();
-        Node modelNote = doc.getFirstChild();
-        NodeList modelChilds = modelNote.getChildNodes();
-
-        for (int i = 0; i < modelChilds.getLength(); i++) {
-            if (modelChilds.item(i).getNodeType() != Node.ELEMENT_NODE) {
-                continue;
+            if (modelChilds.item(i).getNodeName().equalsIgnoreCase("price")) {
+                tagsNameValue.put(modelChilds.item(i).getNodeName(), modelChilds.item(i).getTextContent());
             }
-            tagsName.add(modelChilds.item(i).getNodeName());
         }
-        return tagsName;
-    }
-
-    public List<String> getTagName(String tagName) {
-        List<String> oneTagName = new ArrayList<>();
-        Node modelNote = doc.getFirstChild();
-        NodeList modelChilds = modelNote.getChildNodes();
-
-        for (int i = 0; i < modelChilds.getLength(); i++) {
-            if (modelChilds.item(i).getNodeType() != Node.ELEMENT_NODE) {
-                continue;
-            }
-            if (tagName.equals(modelChilds.item(i).getNodeName()))
-                oneTagName.add(modelChilds.item(i).getNodeName());
-        }
-        return oneTagName;
+        return tagsNameValue;
     }
 }

@@ -19,19 +19,18 @@ public class CommandReadingScanner {
 
         while (scanner.hasNextLine()) {
             name = scanner.nextLine().toLowerCase();
+
             if (name.equalsIgnoreCase("sort")) {
                 store.sortProducts();
-                System.out.println("Enter command");
             } else if (name.equalsIgnoreCase("top")) {
                 store.topProducts();
-                System.out.println("Enter command");
             } else if (name.equalsIgnoreCase("quite")) {
                 System.exit(0);
                 scanner.close();
             } else {
                 System.out.println("Error command");
-                System.out.println("Enter new command");
             }
+            System.out.println("Enter command");
         }
     }
 }
