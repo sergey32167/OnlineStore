@@ -6,19 +6,19 @@ import java.util.List;
 
 public abstract class Category {
 
-    protected List<Product> productList;
+    protected List<Product> listProduct;
     protected String name;
 
     public Category(String name) {
         this.name = name;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<Product> getListProduct() {
+        return listProduct;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setListProduct(List<Product> listProduct) {
+        this.listProduct = listProduct;
     }
 
     public String getName() {

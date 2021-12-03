@@ -47,7 +47,7 @@ public class RandomStorePopulator {
         for (Class<? extends Category> detector : reflections.getSubTypesOf(Category.class)) {
             try {
                 Category newCategory = detector.newInstance();
-                newCategory.setProductList(createListProduct(newCategory.getName()));
+                newCategory.setListProduct(createListProduct(newCategory.getName()));
                 categoryList.add(newCategory);
             } catch (InstantiationException e) {
                 throw new RuntimeException("The specified class object cannot be instantiated");

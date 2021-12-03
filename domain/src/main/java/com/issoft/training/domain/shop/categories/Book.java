@@ -10,7 +10,7 @@ public class Book extends Category {
     public String toString() {
         return "Book{" +
                 "name=" + name +
-                ", productList='" + productList + '\'' +
-                '}' + '\n';
+                ", productList='" + listProduct + '\'' +
+                '}';
     }
 }

@@ -8,9 +8,9 @@ public class Food extends Category {
 
     @Override
     public String toString() {
-        return "Food{" +
+        return "\n Food{" +
                 "name=" + name +
-                ", productList='" + productList + '\'' +
-                '}' + '\n';
+                ", productList='" + listProduct + '\'' +
+                '}';
     }
 }
