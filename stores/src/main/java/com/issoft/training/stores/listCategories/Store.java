@@ -7,7 +7,9 @@ import com.issoft.training.stores.pars.DocPars;
 import com.issoft.training.stores.utils.RandomStorePopulator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Store {
     private List<Category> categoryList;
@@ -52,7 +54,9 @@ public class Store {
 
     public void topProducts() {
         List<Product> listTopProduct = getAllShopProducts();
-        listTopProduct.sort(new ProductComparator(doc.getPriceSort()));
+        Map<String, String> topPriceDesc = new HashMap<>();
+        topPriceDesc.put("price", "desc");
+        listTopProduct.sort(new ProductComparator(topPriceDesc));
         for (int i = 0; i < 5; i++) {
             System.out.println(listTopProduct.get(i));
         }

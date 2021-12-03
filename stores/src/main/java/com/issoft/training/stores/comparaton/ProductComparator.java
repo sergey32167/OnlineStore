@@ -52,7 +52,7 @@ public class ProductComparator implements Comparator<Product> {
                         break;
                     }
             }
-            break;
+            return i;
         }
         return i;
     }
