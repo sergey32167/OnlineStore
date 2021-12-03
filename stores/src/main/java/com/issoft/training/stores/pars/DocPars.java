@@ -43,20 +43,4 @@ public class DocPars {
         }
         return tagsNameValue;
     }
-
-    public Map<String, String> getPriceSort() {
-        Map<String, String> tagsNameValue = new TreeMap<>();
-        Node modelNote = doc.getFirstChild();
-        NodeList modelChilds = modelNote.getChildNodes();
-
-        for (int i = 0; i < modelChilds.getLength(); i++) {
-            if (modelChilds.item(i).getNodeType() != Node.ELEMENT_NODE) {
-                continue;
-            }
-            if (modelChilds.item(i).getNodeName().equalsIgnoreCase("price")) {
-                tagsNameValue.put(modelChilds.item(i).getNodeName(), modelChilds.item(i).getTextContent());
-            }
-        }
-        return tagsNameValue;
-    }
 }
