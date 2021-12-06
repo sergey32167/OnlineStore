@@ -35,7 +35,6 @@ public final class Store {
         }
     }
 
-
     public List<Category> getCategoryList() {
         return categoryList;
     }
@@ -48,7 +47,7 @@ public final class Store {
         System.out.println(categoryList);
     }
 
-    private List<Product> getAllShopProducts() {
+    public List<Product> getAllShopProducts() {
         List<Product> allProductslist = new ArrayList<>();
         for (Category cat : categoryList) {
             for (Product pro : cat.getListProduct()) {
@@ -67,7 +66,7 @@ public final class Store {
         }
     }
 
-    public void topProducts() {
+    public void topProductsByPrice() {
         List<Product> listTopProduct = getAllShopProducts();
         Map<String, String> topPriceDesc = new HashMap<>();
         topPriceDesc.put("price", "desc");

@@ -23,7 +23,7 @@ public class CommandReadingScanner {
             if (name.equalsIgnoreCase("sort")) {
                 store.sortProducts();
             } else if (name.equalsIgnoreCase("top")) {
-                store.topProducts();
+                store.topProductsByPrice();
             } else if (name.equalsIgnoreCase("quite")) {
                 System.exit(0);
                 scanner.close();
