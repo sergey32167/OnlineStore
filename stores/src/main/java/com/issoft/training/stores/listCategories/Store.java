@@ -11,15 +11,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Store {
-    private List<Category> categoryList;
-    private final DocPars doc;
+public final class Store {
+    private static List<Category> categoryList;
+    private static DocPars doc;
+    private static volatile Store instance;
 
-    public Store() {
-        this.categoryList = RandomStorePopulator.createListCategories();
-        this.doc = new DocPars();
+    private Store() {
+        categoryList = RandomStorePopulator.createListCategories();
+        doc = new DocPars();
         doc.parseFile();
     }
+
+    public static Store getInstance() {
+        Store result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized (Store.class) {
+            if (instance == null) {
+                instance = new Store();
+            }
+            return instance;
+        }
+    }
+
 
     public List<Category> getCategoryList() {
         return categoryList;
@@ -60,5 +75,12 @@ public class Store {
         for (int i = 0; i < 5; i++) {
             System.out.println(listTopProduct.get(i));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "categoryList :" + "\n" + categoryList +
+                '}';
     }
 }
