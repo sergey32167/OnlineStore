@@ -2,23 +2,30 @@ package com.issoft.training.stores.listCategories;
 
 import com.issoft.training.domain.shop.Product;
 import com.issoft.training.domain.shop.categories.Category;
-import com.issoft.training.stores.comparaton.ProductComparator;
-import com.issoft.training.stores.pars.DocPars;
 import com.issoft.training.stores.utils.RandomStorePopulator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Store {
+public final class Store {
     private List<Category> categoryList;
-    private final DocPars doc;
+    private static volatile Store instance;
 
-    public Store() {
-        this.categoryList = RandomStorePopulator.createListCategories();
-        this.doc = new DocPars();
-        doc.parseFile();
+    private Store() {
+        categoryList = RandomStorePopulator.createListCategories();
+    }
+
+    public static Store getInstance() {
+        Store result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized (Store.class) {
+            if (instance == null) {
+                instance = new Store();
+            }
+            return instance;
+        }
     }
 
     public List<Category> getCategoryList() {
@@ -33,7 +40,7 @@ public class Store {
         System.out.println(categoryList);
     }
 
-    private List<Product> getAllShopProducts() {
+    public List<Product> getAllShopProducts() {
         List<Product> allProductslist = new ArrayList<>();
         for (Category cat : categoryList) {
             for (Product pro : cat.getListProduct()) {
@@ -42,23 +49,5 @@ public class Store {
             }
         }
         return allProductslist;
-    }
-
-    public void sortProducts() {
-        List<Product> listNewProduct = getAllShopProducts();
-        listNewProduct.sort(new ProductComparator(doc.getDateSort()));
-        for (Product product : listNewProduct) {
-            System.out.println(product);
-        }
-    }
-
-    public void topProducts() {
-        List<Product> listTopProduct = getAllShopProducts();
-        Map<String, String> topPriceDesc = new HashMap<>();
-        topPriceDesc.put("price", "desc");
-        listTopProduct.sort(new ProductComparator(topPriceDesc));
-        for (int i = 0; i < 5; i++) {
-            System.out.println(listTopProduct.get(i));
-        }
     }
 }

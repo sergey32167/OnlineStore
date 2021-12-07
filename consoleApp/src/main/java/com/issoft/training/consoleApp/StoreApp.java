@@ -6,7 +6,7 @@ import com.issoft.training.stores.utils.CommandReadingScanner;
 public class StoreApp {
 
     public static void main(String[] args) {
-        Store store = new Store();
+        Store store = Store.getInstance();
 //        store.printListCategories();
 
         CommandReadingScanner scanner = new CommandReadingScanner(store);
