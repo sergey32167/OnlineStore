@@ -1,7 +1,13 @@
 package com.issoft.training.stores.utils;
 
+import com.issoft.training.stores.command.Command;
+import com.issoft.training.stores.command.QuiteCommand;
+import com.issoft.training.stores.command.SortCommand;
+import com.issoft.training.stores.command.TopCommand;
 import com.issoft.training.stores.listCategories.Store;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class CommandReadingScanner {
@@ -14,24 +20,19 @@ public class CommandReadingScanner {
     public void scannerCommand() {
         Scanner scanner = new Scanner(System.in);
         String name = null;
-
         System.out.println("Enter command");
+        List<Command> commandList = Arrays.asList(new SortCommand(), new TopCommand(), new QuiteCommand());
 
         while (scanner.hasNextLine()) {
             name = scanner.nextLine().toLowerCase();
-
-            if (name.equalsIgnoreCase("sort")) {
-                store.sortProducts();
-            } else if (name.equalsIgnoreCase("top")) {
-                store.topProductsByPrice();
-            } else if (name.equalsIgnoreCase("quite")) {
-                System.exit(0);
-                scanner.close();
-            } else {
-                System.out.println("Error command");
+            for (Command command : commandList) {
+                if (command.getName().equalsIgnoreCase(name)) {
+                    command.execute(store);
+                }
             }
             System.out.println("Enter command");
         }
+        scanner.close();
     }
 }
 
