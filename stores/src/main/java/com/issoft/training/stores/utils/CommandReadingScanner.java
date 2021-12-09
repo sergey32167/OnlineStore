@@ -1,9 +1,6 @@
 package com.issoft.training.stores.utils;
 
-import com.issoft.training.stores.command.Command;
-import com.issoft.training.stores.command.QuiteCommand;
-import com.issoft.training.stores.command.SortCommand;
-import com.issoft.training.stores.command.TopCommand;
+import com.issoft.training.stores.command.*;
 import com.issoft.training.stores.listCategories.Store;
 
 import java.util.Arrays;
@@ -21,7 +18,7 @@ public class CommandReadingScanner {
         Scanner scanner = new Scanner(System.in);
         String name = null;
         System.out.println("Enter command");
-        List<Command> commandList = Arrays.asList(new SortCommand(), new TopCommand(), new QuiteCommand());
+        List<Command> commandList = Arrays.asList(new SortCommand(), new TopCommand(), new QuiteCommand(), new CreateOrder());
 
         while (scanner.hasNextLine()) {
             name = scanner.nextLine().toLowerCase();
