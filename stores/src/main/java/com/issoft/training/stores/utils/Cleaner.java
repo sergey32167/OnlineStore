@@ -10,11 +10,8 @@ public class Cleaner implements Runnable {
 
     @Override
     public void run() {
-        CreateOrder createOrder = new CreateOrder();
-
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(() ->
-                createOrder.getBoughtProduct().clear(), 1, 120, TimeUnit.SECONDS);
-
+                CreateOrder.getInstance().getBoughtProduct().clear(), 1, 120, TimeUnit.SECONDS);
     }
 }

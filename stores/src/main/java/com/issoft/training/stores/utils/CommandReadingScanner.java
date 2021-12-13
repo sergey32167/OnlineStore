@@ -18,7 +18,7 @@ public class CommandReadingScanner {
         Scanner scanner = new Scanner(System.in);
         String name = null;
         System.out.println("Enter command");
-        List<Command> commandList = Arrays.asList(new SortCommand(), new TopCommand(), new QuiteCommand(), new CreateOrder());
+        List<Command> commandList = Arrays.asList(new SortCommand(), new TopCommand(), new QuiteCommand(), CreateOrder.getInstance());
 
         while (scanner.hasNextLine()) {
             name = scanner.nextLine().toLowerCase();
