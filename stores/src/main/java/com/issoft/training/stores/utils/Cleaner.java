@@ -14,6 +14,7 @@ public class Cleaner implements Runnable {
 
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(() ->
-                createOrder.getBoughtProduct().clear(), 0, 40, TimeUnit.SECONDS);
+                createOrder.getBoughtProduct().clear(), 1, 120, TimeUnit.SECONDS);
+
     }
 }

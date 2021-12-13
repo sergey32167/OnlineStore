@@ -10,16 +10,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CreateOrder implements Command {
-    private final static List<Product> boughtProduct = new ArrayList<>();
+    private List<Product> boughtProduct;
     private final String name = "order";
 
     @Override
     public void execute(Store store) {
+        boughtProduct = new ArrayList<>();
         long timeOfBuy = (long) (1 + Math.random() * 30);
-        List<Product> allProduct = new ArrayList<>(store.getAllShopProducts());
-        Random random = new Random();
-        int size = allProduct.size();
-        Product product = allProduct.get(random.nextInt(size));
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
@@ -28,15 +25,22 @@ public class CreateOrder implements Command {
             } catch (InterruptedException e) {
                 throw new RuntimeException("Please shut down correctly");
             }
-            boughtProduct.add(product);
+            addProduct(store);
             System.out.println("Bought Product" + boughtProduct);
-
         });
     }
 
     @Override
     public String getName() {
         return name;
+    }
+
+    private synchronized void addProduct(Store store) {
+        List<Product> allProduct = new ArrayList<>(store.getAllShopProducts());
+        Random random = new Random();
+        int size = allProduct.size();
+        Product product = allProduct.get(random.nextInt(size));
+        boughtProduct.add(product);
     }
 
     public List<Product> getBoughtProduct() {
