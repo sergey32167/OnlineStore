@@ -12,20 +12,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CreateOrder implements Command {
-    private static volatile CreateOrder instance;
     private final String name = "order";
     private final List<Product> boughtProduct = new ArrayList<>();
-    private Lock lock = new ReentrantLock();
-
-    private CreateOrder() {
-    }
-
-    public static CreateOrder getInstance() {
-        if (instance == null) {
-            instance = new CreateOrder();
-        }
-        return instance;
-    }
+    private Lock lockAdd = new ReentrantLock();
 
     @Override
     public void execute(Store store) {
@@ -42,9 +31,9 @@ public class CreateOrder implements Command {
             } catch (InterruptedException e) {
                 throw new RuntimeException("Please shut down correctly");
             }
-            lock.lock();
+            lockAdd.lock();
             boughtProduct.add(product);
-            lock.unlock();
+            lockAdd.unlock();
             System.out.println("Bought Product" + boughtProduct);
         });
     }
