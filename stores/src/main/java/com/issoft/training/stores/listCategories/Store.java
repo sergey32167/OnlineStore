@@ -6,8 +6,10 @@ import com.issoft.training.stores.utils.RandomStorePopulator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class Store {
+    private final List<Product> boughtProduct = new CopyOnWriteArrayList<>();
     private List<Category> categoryList;
     private static volatile Store instance;
 
@@ -49,5 +51,9 @@ public final class Store {
             }
         }
         return allProductslist;
+    }
+
+    public List<Product> getBoughtProduct() {
+        return boughtProduct;
     }
 }

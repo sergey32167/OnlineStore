@@ -8,17 +8,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class CreateOrder implements Command {
     private final String name = "order";
-    private final List<Product> boughtProduct = new ArrayList<>();
-    private Lock lockAdd = new ReentrantLock();
 
     @Override
     public void execute(Store store) {
-        long timeOfBuy = (long) (1 + Math.random() * 30);
+        long timeOfBuy = (long) (1 + Math.random() * 10);
         List<Product> allProduct = new ArrayList<>(store.getAllShopProducts());
         Random random = new Random();
         int size = allProduct.size();
@@ -31,19 +27,13 @@ public class CreateOrder implements Command {
             } catch (InterruptedException e) {
                 throw new RuntimeException("Please shut down correctly");
             }
-            lockAdd.lock();
-            boughtProduct.add(product);
-            lockAdd.unlock();
-            System.out.println("Bought Product" + boughtProduct);
+            store.getBoughtProduct().add(product);
+            System.out.println("Bought Product" + store.getBoughtProduct());
         });
     }
 
     @Override
     public String getName() {
         return name;
-    }
-
-    public List<Product> getBoughtProduct() {
-        return boughtProduct;
     }
 }
