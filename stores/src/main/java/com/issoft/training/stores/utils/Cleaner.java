@@ -19,6 +19,6 @@ public class Cleaner implements Runnable {
         executorService.scheduleAtFixedRate(() -> {
             System.out.println(store.getBoughtProduct().size());
             store.getBoughtProduct().clear();
-        }, 1, 20, TimeUnit.SECONDS);
+        }, 1, 120, TimeUnit.SECONDS);
     }
 }

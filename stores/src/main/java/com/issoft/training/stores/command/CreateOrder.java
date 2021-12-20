@@ -14,7 +14,7 @@ public class CreateOrder implements Command {
 
     @Override
     public void execute(Store store) {
-        long timeOfBuy = (long) (1 + Math.random() * 10);
+        long timeOfBuy = (long) (1 + Math.random() * 30);
         List<Product> allProduct = new ArrayList<>(store.getAllShopProducts());
         Random random = new Random();
         int size = allProduct.size();

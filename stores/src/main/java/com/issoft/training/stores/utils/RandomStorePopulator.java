@@ -29,7 +29,7 @@ public class RandomStorePopulator {
         return new Product(RandomStorePopulator.createProductName(categoryName), faker.number().randomNumber(), faker.number().randomNumber());
     }
 
-    private static List<Product> createListProduct(String categoryName) {
+    public static List<Product> createListProduct(String categoryName) {
         List<Product> listProduct = new ArrayList<>();
         int a1 = (int) (1 + Math.random() * 10);
 //        System.out.println(a1);
