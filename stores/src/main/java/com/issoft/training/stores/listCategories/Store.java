@@ -2,9 +2,6 @@ package com.issoft.training.stores.listCategories;
 
 import com.issoft.training.domain.shop.Product;
 import com.issoft.training.domain.shop.categories.Category;
-import dataBase.CreateTable;
-import dataBase.FillingTable;
-import dataBase.ReadTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +13,9 @@ public final class Store {
     private static volatile Store instance;
 
     private Store() {
-//        categoryList = RandomStorePopulator.createListCategories();
-        new CreateTable().createTables();
-        new FillingTable().fillingTable();
-        categoryList = new ReadTable().readTable();
+//        categoryList = new RandomStorePopulator().createListCategories();
+//        categoryList = new DataBaseStorePopulator().createListCategoryDB();
+        categoryList = new StorePopulator().storePopulator("dataBase");
     }
 
     public static Store getInstance() {

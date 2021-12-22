@@ -41,7 +41,7 @@ public class RandomStorePopulator {
         return listProduct;
     }
 
-    public static List<Category> createListCategories() {
+    public List<Category> createListCategories() {
         List<Category> categoryList = new ArrayList<>();
         Reflections reflections = new Reflections("com.issoft.training.domain.shop.categories");
         for (Class<? extends Category> detector : reflections.getSubTypesOf(Category.class)) {
