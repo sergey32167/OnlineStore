@@ -44,36 +44,12 @@ public class DataBaseStorePopulator {
             while (rs3.next()) {
                 count++;
             }
-            System.out.println(count);
+//            System.out.println(count);
 
             if (count > 1) {
-                categoryListDB = new ArrayList<>();
-                String sql = "SELECT name, id FROM CATEGORY ";
-                ResultSet rs = statement.executeQuery(sql);
-                Category category = null;
-                while (rs.next()) {
-                    String categoryName = rs.getString("name");
-                    switch (categoryName) {
-                        case ("food"):
-                            category = new Food();
-                            break;
-                        case ("book"):
-                            category = new Book();
-                            break;
-                        case ("animal"):
-                            category = new Animal();
-                            break;
-                    }
-                    category.setId(rs.getInt("id"));
-                    categoryListDB.add(category);
-                }
-
-                for (Category categoryDB : categoryListDB) {
-                    categoryDB.setListProduct(fillProdListDB(categoryDB.getId()));
-                }
-
+                fillCategoryDB();
+//
             } else {
-
                 List<Category> categoryTable = new RandomStorePopulator().createListCategories();
                 for (Category category : categoryTable) {
                     String SQL = "INSERT INTO  CATEGORY ( name)  " + "VALUES( ?)";
@@ -93,31 +69,7 @@ public class DataBaseStorePopulator {
                         preparedStatement.executeUpdate();
                     }
                 }
-
-                categoryListDB = new ArrayList<>();
-                String sql = "SELECT name, id FROM CATEGORY ";
-                ResultSet rs = statement.executeQuery(sql);
-                Category category = null;
-                while (rs.next()) {
-                    String categoryName = rs.getString("name");
-                    switch (categoryName) {
-                        case ("food"):
-                            category = new Food();
-                            break;
-                        case ("book"):
-                            category = new Book();
-                            break;
-                        case ("animal"):
-                            category = new Animal();
-                            break;
-                    }
-                    category.setId(rs.getInt("id"));
-                    categoryListDB.add(category);
-                }
-
-                for (Category categoryDB : categoryListDB) {
-                    categoryDB.setListProduct(fillProdListDB(categoryDB.getId()));
-                }
+                fillCategoryDB();
             }
 
             statement.close();
@@ -140,6 +92,33 @@ public class DataBaseStorePopulator {
         }
 //        System.out.println(categoryListDB);
         return categoryListDB;
+    }
+
+    private void fillCategoryDB() throws SQLException {
+        categoryListDB = new ArrayList<>();
+        String sql = "SELECT name, id FROM CATEGORY ";
+        ResultSet rs = statement.executeQuery(sql);
+        Category category = null;
+        while (rs.next()) {
+            String categoryName = rs.getString("name");
+            switch (categoryName) {
+                case ("food"):
+                    category = new Food();
+                    break;
+                case ("book"):
+                    category = new Book();
+                    break;
+                case ("animal"):
+                    category = new Animal();
+                    break;
+            }
+            category.setId(rs.getInt("id"));
+            categoryListDB.add(category);
+        }
+
+        for (Category categoryDB : categoryListDB) {
+            categoryDB.setListProduct(fillProdListDB(categoryDB.getId()));
+        }
     }
 
     private List<Product> fillProdListDB(int id) {
