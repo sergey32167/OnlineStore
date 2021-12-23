@@ -15,23 +15,16 @@ import java.util.List;
 public class DataBaseStorePopulator implements Populator {
     private Statement statement;
     private List<Category> categoryListDB;
+    private final Connection connection;
+
+    public DataBaseStorePopulator() {
+        connection = ConnectionToDataBase.getInstance().connectionToDataBase();
+    }
 
     public List<Category> createListCategories() {
-        connectionWithDataBase();
         try {
             createTables();
-            String sql3 = "SELECT id FROM CATEGORY ";
-            ResultSet rs3 = statement.executeQuery(sql3);
-            int count = 0;
-            while (rs3.next()) {
-                count++;
-            }
-            if (count > 1) {
-                getCategoryListFromDB();
-            } else {
-                insertDataToTables();
-                getCategoryListFromDB();
-            }
+            insertAndGetDataFromTables();
         } catch (SQLException se) {
             throw new RuntimeException("Database error", se);
         } catch (Exception e) {
@@ -43,7 +36,7 @@ public class DataBaseStorePopulator implements Populator {
                 throw new RuntimeException("Database access error", se2);
             }
             try {
-                if (connectionWithDataBase() != null) connectionWithDataBase().close();
+                if (connection != null) connection.close();
             } catch (SQLException se) {
                 throw new RuntimeException("Connection error", se);
             }
@@ -51,25 +44,8 @@ public class DataBaseStorePopulator implements Populator {
         return categoryListDB;
     }
 
-    private Connection connectionWithDataBase() {
-        String driver = "org.h2.Driver";
-        String url = "jdbc:h2:tcp://localhost/~/test";
-        String user = "sa";
-        String password = "";
-        Connection connection;
-        try {
-            Class.forName(driver);
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Exception thrown while loading the class", e);
-        } catch (SQLException e) {
-            throw new RuntimeException("Database access error", e);
-        }
-        return connection;
-    }
-
     private void createTables() throws SQLException {
-        statement = connectionWithDataBase().createStatement();
+        statement = connection.createStatement();
         String sql1 = "CREATE TABLE IF NOT EXISTS CATEGORY " +
                 "(id INTEGER not NULL AUTO_INCREMENT," +
                 "name VARCHAR(50) NOT NULL, " +
@@ -86,11 +62,26 @@ public class DataBaseStorePopulator implements Populator {
         statement.executeUpdate(sql2);
     }
 
+    private void insertAndGetDataFromTables() throws SQLException {
+        String sql3 = "SELECT COUNT(1) FROM CATEGORY ";
+        ResultSet rs3 = statement.executeQuery(sql3);
+        int count = 0;
+        while (rs3.next()) {
+            count = rs3.getInt(1);
+        }
+        if (count > 1) {
+            getCategoryListFromDB();
+        } else {
+            insertDataToTables();
+            getCategoryListFromDB();
+        }
+    }
+
     private void insertDataToTables() throws SQLException {
         List<Category> categoryTable = new RandomStorePopulator().createListCategories();
         for (Category category : categoryTable) {
             String SQL = "INSERT INTO  CATEGORY ( name)  " + "VALUES( ?)";
-            PreparedStatement preparedStatement = connectionWithDataBase().prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, category.getName());
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -98,7 +89,7 @@ public class DataBaseStorePopulator implements Populator {
             List<Product> productTable = RandomStorePopulator.createListProduct(category.getName());
             for (Product product : productTable) {
                 String SQL1 = "INSERT INTO PRODUCT (productName, productPrice, productRate, category_id)" + "VALUES( ?, ?, ?, ?)";
-                preparedStatement = connectionWithDataBase().prepareStatement(SQL1);
+                preparedStatement = connection.prepareStatement(SQL1);
                 preparedStatement.setString(1, product.getName());
                 preparedStatement.setDouble(2, product.getPrice());
                 preparedStatement.setDouble(3, product.getRate());
@@ -144,11 +135,6 @@ public class DataBaseStorePopulator implements Populator {
             productListDB.add(new Product(rs1.getString("productName"), rs1.getInt("productPrice"), rs1.getInt("productRate")));
         }
         return productListDB;
-    }
-
-    public String getName() {
-        String name = "DATABASE";
-        return name;
     }
 }
 

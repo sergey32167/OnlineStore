@@ -58,9 +58,4 @@ public class RandomStorePopulator implements Populator {
 //        System.out.println(categoryList);
         return categoryList;
     }
-
-    public String getName() {
-        String name = "RANDOM";
-        return name;
-    }
 }
