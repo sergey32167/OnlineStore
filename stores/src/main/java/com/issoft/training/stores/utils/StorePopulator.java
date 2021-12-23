@@ -4,19 +4,24 @@ import com.issoft.training.domain.shop.categories.Category;
 import dataBase.DataBaseStorePopulator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StorePopulator {
+    private final Map<PopulatorKinds, Populator> populatorMap;
 
-    public List<Category> storePopulator(String populator) {
-        List<PopulatorMethod> populatorClass = new ArrayList<>();
-        populatorClass.add(new DataBaseStorePopulator());
-        populatorClass.add(new RandomStorePopulator());
+    public StorePopulator() {
+        this.populatorMap = new HashMap<>();
+        populatorMap.put(PopulatorKinds.DATABASE, new DataBaseStorePopulator());
+        populatorMap.put(PopulatorKinds.RANDOM, new RandomStorePopulator());
+    }
+
+    public List<Category> storePopulator(PopulatorKinds populator) {
         List<Category> categories = new ArrayList<>();
-
-        for (PopulatorMethod method : populatorClass) {
-            if (method.getName().equalsIgnoreCase(populator)) {
-                categories.addAll(method.createListCategories());
+        for (Map.Entry<PopulatorKinds, Populator> method : populatorMap.entrySet()) {
+            if (method.getKey().equals(populator)) {
+                categories.addAll(method.getValue().createListCategories());
             }
         }
         return categories;

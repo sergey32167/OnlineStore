@@ -2,6 +2,7 @@ package com.issoft.training.stores.listCategories;
 
 import com.issoft.training.domain.shop.Product;
 import com.issoft.training.domain.shop.categories.Category;
+import com.issoft.training.stores.utils.PopulatorKinds;
 import com.issoft.training.stores.utils.StorePopulator;
 
 import java.util.ArrayList;
@@ -14,9 +15,7 @@ public final class Store {
     private static volatile Store instance;
 
     private Store() {
-//        categoryList = new RandomStorePopulator().createListCategories();
-//        categoryList = new DataBaseStorePopulator().createListCategoryDB();
-        categoryList = new StorePopulator().storePopulator("DATABASE");
+        categoryList = new StorePopulator().storePopulator(PopulatorKinds.DATABASE);
     }
 
     public static Store getInstance() {

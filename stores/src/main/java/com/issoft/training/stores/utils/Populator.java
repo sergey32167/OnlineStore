@@ -4,7 +4,7 @@ import com.issoft.training.domain.shop.categories.Category;
 
 import java.util.List;
 
-public interface PopulatorMethod {
+public interface Populator {
 
     String getName();
 
