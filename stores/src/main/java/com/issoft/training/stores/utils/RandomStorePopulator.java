@@ -8,7 +8,8 @@ import org.reflections.Reflections;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomStorePopulator {
+public class RandomStorePopulator implements PopulatorMethod {
+
     private static final Faker faker = new Faker();
 
     private static String createProductName(String categoryName) {
@@ -57,5 +58,10 @@ public class RandomStorePopulator {
         }
 //        System.out.println(categoryList);
         return categoryList;
+    }
+
+    public String getName() {
+        String name = "RANDOM";
+        return name;
     }
 }
