@@ -1,4 +1,4 @@
-package dataBase;
+package com.issoft.training.dataBase;
 
 import com.issoft.training.domain.shop.Product;
 import com.issoft.training.domain.shop.categories.Animal;
@@ -15,14 +15,15 @@ import java.util.List;
 public class DataBaseStorePopulator implements Populator {
     private Statement statement;
     private List<Category> categoryListDB;
-    private final Connection connection;
+    private Connection connection;
 
     public DataBaseStorePopulator() {
-        connection = ConnectionToDataBase.getInstance();
+        connection = ConnectionToDataBase.getInstance().getConnection();
     }
 
     public List<Category> createListCategories() {
         try {
+//            connectionToDataBase();
             createTables();
             insertAndGetDataFromTables();
         } catch (SQLException se) {
@@ -42,6 +43,25 @@ public class DataBaseStorePopulator implements Populator {
             }
         }
         return categoryListDB;
+    }
+
+    private void connectionToDataBase() {
+        String driver = "org.h2.Driver";
+        String url = "jdbc:h2:tcp://localhost/~/test";
+        String user = "sa";
+        String password = "";
+        try {
+            Class.forName(driver);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Exception thrown while loading the class", e);
+        }
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(url, user, password);
+            } catch (SQLException e) {
+                throw new RuntimeException("Database access error", e);
+            }
+        }
     }
 
     private void createTables() throws SQLException {

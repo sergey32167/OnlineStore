@@ -1,7 +1,7 @@
 package com.issoft.training.stores.utils;
 
+import com.issoft.training.dataBase.DataBaseStorePopulator;
 import com.issoft.training.domain.shop.categories.Category;
-import dataBase.DataBaseStorePopulator;
 
 import java.util.HashMap;
 import java.util.List;
