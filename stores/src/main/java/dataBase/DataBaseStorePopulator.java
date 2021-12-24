@@ -18,7 +18,7 @@ public class DataBaseStorePopulator implements Populator {
     private final Connection connection;
 
     public DataBaseStorePopulator() {
-        connection = ConnectionToDataBase.getInstance().connectionToDataBase();
+        connection = ConnectionToDataBase.getInstance();
     }
 
     public List<Category> createListCategories() {
