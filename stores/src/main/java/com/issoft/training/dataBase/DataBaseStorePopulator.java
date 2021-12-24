@@ -45,25 +45,6 @@ public class DataBaseStorePopulator implements Populator {
         return categoryListDB;
     }
 
-    private void connectionToDataBase() {
-        String driver = "org.h2.Driver";
-        String url = "jdbc:h2:tcp://localhost/~/test";
-        String user = "sa";
-        String password = "";
-        try {
-            Class.forName(driver);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Exception thrown while loading the class", e);
-        }
-        if (connection == null) {
-            try {
-                connection = DriverManager.getConnection(url, user, password);
-            } catch (SQLException e) {
-                throw new RuntimeException("Database access error", e);
-            }
-        }
-    }
-
     private void createTables() throws SQLException {
         statement = connection.createStatement();
         String sql1 = "CREATE TABLE IF NOT EXISTS CATEGORY " +
