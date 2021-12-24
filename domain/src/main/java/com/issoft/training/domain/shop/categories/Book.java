@@ -8,7 +8,7 @@ public class Book extends Category {
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "\n Book{" +
                 "name=" + name +
                 ", productList='" + listProduct + '\'' +
                 '}';

@@ -8,7 +8,7 @@ import org.reflections.Reflections;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomStorePopulator {
+public class RandomStorePopulator implements Populator {
     private static final Faker faker = new Faker();
 
     private static String createProductName(String categoryName) {
@@ -29,7 +29,7 @@ public class RandomStorePopulator {
         return new Product(RandomStorePopulator.createProductName(categoryName), faker.number().randomNumber(), faker.number().randomNumber());
     }
 
-    private static List<Product> createListProduct(String categoryName) {
+    public static List<Product> createListProduct(String categoryName) {
         List<Product> listProduct = new ArrayList<>();
         int a1 = (int) (1 + Math.random() * 10);
 //        System.out.println(a1);
@@ -41,7 +41,7 @@ public class RandomStorePopulator {
         return listProduct;
     }
 
-    public static List<Category> createListCategories() {
+    public List<Category> createListCategories() {
         List<Category> categoryList = new ArrayList<>();
         Reflections reflections = new Reflections("com.issoft.training.domain.shop.categories");
         for (Class<? extends Category> detector : reflections.getSubTypesOf(Category.class)) {
