@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class HttpClient implements Populator {
     private HttpURLConnection connection;
-
+    public List<Category> categoryList;
     @Override
     public List<Category> createListCategories() {
         try {
@@ -38,7 +38,8 @@ public class HttpClient implements Populator {
                 }
 
                 ObjectMapper mapper = new ObjectMapper();
-                return mapper.readValue(stringBuilder.toString(), new TypeReference<List<Category>>() {
+
+                categoryList = mapper.readValue(stringBuilder.toString(), new TypeReference<List<Category>>() {
                 });
             }
 
@@ -48,7 +49,7 @@ public class HttpClient implements Populator {
             throw new RuntimeException("The address error", e);
         }
         connection.disconnect();
-        return null;
+        return categoryList;
     }
 
     public void addProductToCart(List<Product> allShopProduct) {

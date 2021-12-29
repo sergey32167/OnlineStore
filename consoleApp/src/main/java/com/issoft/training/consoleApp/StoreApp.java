@@ -13,7 +13,7 @@ public class StoreApp {
         Store store = Store.getInstance();
 
         HttpClient httpClient = new HttpClient();
-//        httpClient.createListCategories();
+        httpClient.addProductToCart(store.getAllShopProducts());
 
         CommandReadingScanner scanner = new CommandReadingScanner(store);
         scanner.scannerCommand();
