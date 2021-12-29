@@ -4,7 +4,7 @@ import com.issoft.training.domain.shop.Product;
 
 import java.util.List;
 
-public abstract class Category {
+public class Category {
 
     protected List<Product> listProduct;
     protected String name;
@@ -12,6 +12,10 @@ public abstract class Category {
 
     public Category(String name) {
         this.name = name;
+    }
+
+    public Category() {
+
     }
 
     public int getId() {

@@ -13,8 +13,7 @@ public class Product {
         this.rate = rate;
     }
 
-    public Product(long category_id) {
-        this.category_id = category_id;
+    public Product() {
     }
 
     public String getName() {

@@ -23,7 +23,6 @@ public class DataBaseStorePopulator implements Populator {
 
     public List<Category> createListCategories() {
         try {
-//            connectionToDataBase();
             createTables();
             insertAndGetDataFromTables();
         } catch (SQLException se) {
