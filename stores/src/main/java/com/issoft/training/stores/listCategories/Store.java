@@ -15,7 +15,7 @@ public final class Store {
     private static volatile Store instance;
 
     private Store() {
-        categoryList = new StorePopulator().storePopulator(PopulatorKinds.DATABASE);
+        categoryList = new StorePopulator().storePopulator(PopulatorKinds.HTTP);
     }
 
     public static Store getInstance() {
