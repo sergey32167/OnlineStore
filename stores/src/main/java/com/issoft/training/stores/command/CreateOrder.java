@@ -25,7 +25,7 @@ public class CreateOrder implements Command {
             try {
                 Thread.sleep(timeOfBuy * 1000);
             } catch (InterruptedException e) {
-                throw new RuntimeException("Please shut down correctly");
+                throw new RuntimeException("Please shut down correctly", e);
             }
             store.getBoughtProduct().add(product);
             System.out.println("Bought Product" + store.getBoughtProduct());

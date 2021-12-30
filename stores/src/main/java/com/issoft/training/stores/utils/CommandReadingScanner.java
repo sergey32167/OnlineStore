@@ -16,9 +16,9 @@ public class CommandReadingScanner {
 
     public void scannerCommand() {
         Scanner scanner = new Scanner(System.in);
-        String name = null;
+        String name;
         System.out.println("Enter command");
-        List<Command> commandList = Arrays.asList(new SortCommand(), new TopCommand(), new QuiteCommand(), new CreateOrder());
+        List<Command> commandList = Arrays.asList(new SortCommand(), new TopCommand(), new QuiteCommand(), new CreateOrder(), new AddToCartCommand());
 
         Cleaner cleaner = new Cleaner(store);
         cleaner.run();

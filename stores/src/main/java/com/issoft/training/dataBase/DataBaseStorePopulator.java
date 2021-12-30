@@ -15,7 +15,7 @@ import java.util.List;
 public class DataBaseStorePopulator implements Populator {
     private Statement statement;
     private List<Category> categoryListDB;
-    private Connection connection;
+    private final Connection connection;
 
     public DataBaseStorePopulator() {
         connection = ConnectionToDataBase.getInstance().getConnection();
@@ -129,8 +129,7 @@ public class DataBaseStorePopulator implements Populator {
     private List<Product> getProductListFromDB(int id) throws SQLException {
         List<Product> productListDB = new ArrayList<>();
         String sql1 = String.format("SELECT * FROM PRODUCT WHERE category_id = '%d' ", id);
-        ResultSet rs1 = null;
-        rs1 = statement.executeQuery(sql1);
+        ResultSet rs1 = statement.executeQuery(sql1);
         while (rs1.next()) {
             productListDB.add(new Product(rs1.getString("productName"), rs1.getInt("productPrice"), rs1.getInt("productRate")));
         }
